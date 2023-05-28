@@ -40,7 +40,7 @@ std::vector<std::string> split(const std::string& s, char ch) {
     std::vector<std::string> ret;
     std::string l;
 
-    for(int i = 0; i < s.size(); i++) {
+    for(unsigned i = 0; i < s.size(); i++) {
         if(s[i] == ch) {
             ret.push_back(l);
             l = "";
@@ -55,7 +55,7 @@ std::vector<std::string> split(const std::string& s, char ch) {
     return ret;
 }
 
-bool loadFloat(std::string& line, int& index, float& flt) {
+bool loadFloat(std::string& line, unsigned& index, float& flt) {
     while(!IS_FLOAT_CHAR(line[index]) && index < line.size()) {
         index++;
     }
@@ -69,9 +69,9 @@ bool loadFloat(std::string& line, int& index, float& flt) {
 }
 
 bool loadFloats(std::string& line, std::vector<float>& list, uint32_t count) {
-    int index = 2;
+    unsigned index = 2;
 
-    for(int i = 0; i < count; i++) {
+    for(unsigned i = 0; i < count; i++) {
         float l = 0;
         if(!loadFloat(line, index, l)) return false;
         list.push_back(l);
@@ -82,6 +82,10 @@ bool loadFloats(std::string& line, std::vector<float>& list, uint32_t count) {
 
 bool loadFace(std::string& line, std::vector<int>& indices, std::vector<float>& positions, std::vector<float>& normals, 
     std::vector<float>& uvs, std::unordered_map<Vertex, int, VertexHash>& vertices) {
+    (void) positions;
+    (void) normals;
+    (void) uvs;
+
     Vertex vertex1, vertex2, vertex3;
     std::vector<std::string> faceSplit = split(line, ' ');
 
@@ -133,7 +137,7 @@ bool loadFace(std::string& line, std::vector<int>& indices, std::vector<float>& 
     }
 
     if(vertices.find(vertex1) == vertices.end()) {
-        vertices[vertex1] = vertices.size();
+         vertices[vertex1] = vertices.size();
     }
 
     if(vertices.find(vertex2) == vertices.end()) {
@@ -168,7 +172,7 @@ bool loadIndexedModel(const std::string& filePath, IndexedModel& model) {
                 if(!loadFloats(line, uvs, 2)) return false;
             }
             else if(line[0] == 'v' && line[1] == 'n') {
-                if(!loadFloats(line, normals, 3));
+                if(!loadFloats(line, normals, 3)) {};
             }
             else if(line[0] == 'f') {
                 if(!loadFace(line, indices, positions, normals, uvs, vertices)) return false;
@@ -202,7 +206,7 @@ bool loadIndexedModel(const std::string& filePath, IndexedModel& model) {
 
     //finally copy over the indices
     model.indexCount = indices.size();
-    for(int i = 0; i < indices.size(); i++) {
+    for(unsigned i = 0; i < indices.size(); i++) {
         model.indices[i] = indices[i];
     }
 

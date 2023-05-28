@@ -1,15 +1,15 @@
-IDIR =include
+IDIR=include
 CC=g++
-CFLAGS=-I$(IDIR)
+CFLAGS=-I$(IDIR) -Wall -Wpedantic -Wextra -Werror
 
 ODIR=obj
-LDIR =../lib
+LDIR=../lib
 
 LIBS=-lm -lncursesw -lpthread
 
 _DEPS=defs.h Vector2.h Vector3.h Vector4.h Matrix22.h Matrix33.h Matrix44.h Quaternion.h GenMath.h Rasterizer.h Framebuffer.h Camera.h Loader.h \
 DataList.h Shader.h VertexShader.h FragmentShader.h ShaderProgram.h VertexArrayObject.h BasicShaders.h
-DEPS= $(patsubst %,$(IDIR)/%,$(_DEPS))
+DEPS=$(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ=main.o Vector2.o Vector3.o Vector4.o Matrix22.o Matrix33.o Matrix44.o Quaternion.o GenMath.o Rasterizer.o Framebuffer.o Camera.o ModelLoader.o \
 VertexShader.o FragmentShader.o VertexArrayObject.o

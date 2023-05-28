@@ -12,11 +12,11 @@
 class DataList {
     public:
         DataList(int count) :
-            data(new float[count]),
-            indices(new int[count]),
             count(count),
+            index(0),
             indicesIndex(0),
-            index(0)
+            data(new float[count]),
+            indices(new int[count])
         {}
 
         ~DataList() {

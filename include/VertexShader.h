@@ -11,7 +11,10 @@ class VertexShader : public Shader {
         {}
 
         virtual void execute(DataList** attributesIn, DataList* attributesOut, int attributeLocation, Vector4& input) {
-
+		(void) attributesIn;
+		(void) attributesOut;
+		(void) attributeLocation;
+		(void) input;
         }
 
         virtual ~VertexShader() {

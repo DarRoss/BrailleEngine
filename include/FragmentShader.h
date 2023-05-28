@@ -10,6 +10,8 @@ class FragmentShader : public Shader {
         {}
 
         virtual float execute(DataList* passAttributes, Vector4& out) {
+	    (void) passAttributes;
+	    (void) out;
             return 1.0f;
         }
 

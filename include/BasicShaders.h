@@ -73,6 +73,7 @@ class BasicFragmentShader : public FragmentShader {
         }
 
         float execute(DataList* attributes, Vector4& output) {
+		(void) output;
 		float brightness;
 		Vector3 surfaceNormal;
 		Vector3 toLightVector;
@@ -80,10 +81,13 @@ class BasicFragmentShader : public FragmentShader {
 		attributes->get(0, surfaceNormal);
 		attributes->get(1, toLightVector);
 		
+		// normalize surface normal and vector to light source
 		surfaceNormal.normalize();
 		toLightVector.normalize();
 		
+		// take dot product of surface normal and light source vector normal
 		brightness = surfaceNormal * toLightVector;
+		// clamp brightness between 0 and 1
 		brightness = MIN(brightness, 1);
 		brightness = MAX(brightness, 0);
 		
